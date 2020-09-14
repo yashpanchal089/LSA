@@ -34,7 +34,7 @@ Steps(command)
    yash@yash:~$sudo nano /etc/dhcp/dhcpd.conf
 
 3. You can get to know about your ip address by: 
-   $yash@yash:~$ip addr
+   yash@yash:~$ip addr
 
 4. We then configure the subnet and the netmask(dhcpd.conf), then save the file and exit
 
