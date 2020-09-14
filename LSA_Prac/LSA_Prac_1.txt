@@ -26,7 +26,7 @@ Advantages of using DHCP:-
 Disadvantage of using DHCP:-
 ★ IP conflict can occur
 
-Steps(command)
+Steps(comand)
 1. Command to install dhcp-server:  
    yash@yash:~$sudo apt install -y isc-dhcp-server
 
