@@ -1,0 +1,36 @@
+Practical No: 4
+
+Aim: SSH Server: Password Authentication Configure SSH server
+
+★ SSH Stands for - Secured Shell
+
+★ It is a method for secure remote login from one computer to another.
+
+★ It provides several alternative options for strong authentication.
+
+★ It protects the communications security and integrity with strong encryption.
+
+★ It is a secure alternative to the non-protected login protocols (such as telnet)
+  and insecure file transfer methods (such as FTP).
+
+• Steps and Commands:
+
+a. Command to install ssh server:
+   yash@yash:~$ sudo dpkf -l openssh-server		(OR)
+
+   yash@yash:~$ sudo apt-get -y install openssh-server
+
+b. Command to enable a service:  
+   yash@yash:~$ sudo systemctl enable ssh
+
+c. Command to status a service:  
+   yash@yash:~$ sudo systemctl status ssh
+
+d. Now To configure user's server to allow incoming SSH connections, user can use this command: 
+   yash@yash:~$ sudo ufw allow ssh
+
+e. After this user can connect to the ssh localhost by the command:
+   yash@yash:~$ ssh localhost
+
+  User can enter the root password to connect to the localhost
+
