@@ -28,7 +28,7 @@ Practical No: 2
 4.) List of services running: command to list the currently active and running services:- 
     $sudo systemctl
 
-5.) Commands:-
+5.) Steps and Commands:-
 
     Command to enable a service:
     $sudo systemctl enable <service_name>
