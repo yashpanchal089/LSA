@@ -34,7 +34,7 @@ c. Now user needs to create a directory to show the function of NFS that is the 
    yash@yash:~$ vi a.txt
    yash@yash:~$ ls a.txt
    yash@yash:~$ mv a.txt demo_dir
-   yash@yash:~$ ls /home/shibu/demo_dir
+   yash@yash:~$ ls /home/yash/demo_dirr
 
 d. Now we have to mention our /directory_path ip_address (permissions), we need to give rw (read,write) permission,
    the commands for this is as follows:
@@ -55,7 +55,7 @@ f. To allow file sharing between systems on your network, the command is:
 
 g. Now to mount the file:
 
-   shibu@kali:~$ sudo mount -t nfs 127.0.01:/home/shibu/demo_dir /home/shibu_directory
+   shibu@kali:~$ sudo mount -t nfs 127.0.01:/home/yash/demo_dir /home/yash_directory
 
 h. Lastly, then the user can check for the mounted file in the directory that user has made:
  
