@@ -1,0 +1,145 @@
+Practcal - 5 
+Aim :- Install Samba to share folders or files between Windows and Linux.
+
+★ Samba is an open-source implementation of the Server Message Block (SMB) protocol.
+★ It allows Linux to work with the Windows operating system, as both a server and a client.
+★ Samba shares Linux files and printers with Windows systems, and also gives Linux users access 
+  to files on Windows systems.
+
+★ Several Samba packages are included with most of the Linux distributions:
+   a. Samba: Provides an SMB/Common Internet File System (CIFS) server that can be used to provide 
+             network services to SMB/CIFS clients
+   b. Samba-client: Provides some SMB/CIFS clients to complement the built-in SMB/CIFS file system in 
+      Linux. These clients allow access to SMB/CIFS shares and printing to SMB/CIFS printers.
+   c. Samba-common: Provides files necessary for both the server and client Samba packages.
+
+★ Types of Samba servers used while configuring Samba
+   a. Stand-Alone Server.
+   b. Domain Member Server.
+   c. Domain Controller.
+
+★ Samba Daemons and Services
+  a. smbd: The server daemon that provides file-sharing and printing services to Windows clients. 
+     It is also responsible for user authentication, resource locking, and data sharing through the SMB protocol.
+  b. nmbd: The NetBIOS nameserver daemon replies to name-service requests produced by SMB/CIFS in Windows-based systems. 
+     It also provides browsing support in the Windows Network Neighborhood view.
+
+★ Steps and commands (Kali Linux part):
+1. First we need to install Samba Server:
+   yash@yash:~$ sudo apt-get -y install samba
+
+2. Then we need to start samba service:
+   yash@yash:~$ sudo systemctl start smbd
+
+3. Then we need to check the status samba service:
+   yash@yash:~$ sudo systemctl status smbd
+
+4. Then we need to start nmbd service:
+   yash@yash:~$ sudo systemctl start nmbd
+
+5. Then we need to start nmbd service:
+   yash@yash:~$ sudo systemctl status nmbd
+
+6. First we make a samba_shared directory in /home/yash
+
+7. Then we make few txt files in /home/yash/samba_shared 
+   yash@yash:~$ touch a.txt b.txt c.txt  
+
+8. Now,
+   yash@yash:~$ cd /etc/samba
+   yash@yash:~$ ls /etc/samba
+
+9. Now take the backup of smb.conf 
+   yash@yash:~$ cp smb.conf smb.conf_bkp 
+
+10. Now we need to do few configuration in /etc/smb.conf
+    yash@yash:~$ sudo nano smb.conf
+
+11. Then delete all the things inside smb.conf and then write:
+    [samba_shared]
+	comment = Welcome to samba
+	path = /home/yash/samba_shared
+	browseable = yes
+	read only = yes
+	guest ok = no
+
+Then ctrl x and then y and save the file. 
+
+12. Now download smbclient if not there then the command is:
+    yash@yash:~$ sudo apt-get -y install smbclient 
+
+13. Now start/stop services of both smbd and nmbd
+    yash@yash:~$ sudo systemctl start smbd
+    yash@yash:~$ sudo systemctl stop nmbd
+
+Also, check both smbd and nmbd statuses too
+
+14. First do: 
+    yash@yash:~$ whoami
+ 
+15. And then: 
+    yash@yash:~$ sudo pdbedit -a -u $(whoami)
+
+16. Type and retype your password:
+    yash@yash:~$ sudo pdbedit -L (to check all users)
+
+17. This will make any connectionn possible to connect:
+    $ sudo ufw allow from (your ip addr) any app Samba
+
+    In my case it was:
+    yash@yash:~$ sudo ufw allow from 192.168.56.0/24 to any app Samba
+
+18. To check for your ip then use this command : 
+    yash@yash:~$ ip a 		(OR) 
+    yash@yash:~$ ip addr
+
+19. Now to reload your firewall use:
+    yash@yash:~$ sudo ufw reload
+
+20. To check whether it's working or not, use:
+    $ sudo smbcllient -U <username> -L  //your ip  
+    
+    In my case it was:
+    yash@yash:~$ sudo smbcllient -U yash -L  //192.168.56.101
+
+21. Now restart both smbd and nmbd services:
+    yash@yash:~$ sudo systemctl restart smbd
+    yash@yash:~$ sudo systemctl restart nmbd
+
+22. Do also check their status 
+    yash@yash:~$ sudo systemctl status smbd
+    yash@yash:~$ sudo systemctl status nmbd
+
+★ Windows OS Part:
+1. Once smbd and nmbd services are active now switch back to your windows OS and press 
+   windows + R key on keyboard and now a pop up box will open and their write smbclient ip address, 
+   here in my case it was //192.168.56.101 and press OK.
+
+2. Now again one more pop up box will open, write the credentials of your Windows or Kali or whatever it would be.
+
+3. Now in top of the address bar you can see Network > 192.168.56.101 (your ip address)
+   in this you can see samba_shared and documents folder.
+
+4. In samba_shared server you can see all the txt files that we have made earlier, using touch command.
+
+5. Once all your samba_shared files are visible in windows, then the sharing of files/folders have been 
+   successfully done between Windows and Kali Linux.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
