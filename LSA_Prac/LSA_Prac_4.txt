@@ -32,5 +32,5 @@ d. Now To configure user's server to allow incoming SSH connections, user can us
 e. After this user can connect to the ssh localhost by the command:
    yash@yash:~$ ssh localhost
 
-  User can enter the root password to connect to the localhost
+  User can enter the root password to connect to the localhost.
 
