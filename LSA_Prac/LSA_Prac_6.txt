@@ -43,7 +43,7 @@ d. Now we have to mention our /directory_path ip_address (permissions), we need 
    yash@yash:~$cat /etc/exports
   
    >After mentioning the /directory_path ip_address (permissions), it should look like this.
-    /home/yash/demo_dir 127.0.0.1(rw)
+    /home/yash/demo_dirr 127.0.0.1(rw)
 
 e. Now to check the exports:
    
@@ -55,11 +55,11 @@ f. To allow file sharing between systems on your network, the command is:
 
 g. Now to mount the file:
 
-   yash@yash:~$ sudo mount -t nfs 127.0.01:/home/yash/demo_dir /home/yash_directory
+   yash@yash:~$ sudo mount -t nfs 127.0.01:/home/yash/demo_dirr /home/yash_directory
 
 h. Lastly, then the user can check for the mounted file in the directory that user has made:
  
-   yash@yash:~$ cd /home/shibu_directory
+   yash@yash:~$ cd /home/yash_directory
    ls
 
 
