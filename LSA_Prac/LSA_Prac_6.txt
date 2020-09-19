@@ -55,7 +55,7 @@ f. To allow file sharing between systems on your network, the command is:
 
 g. Now to mount the file:
 
-   shibu@kali:~$ sudo mount -t nfs 127.0.01:/home/yash/demo_dir /home/yash_directory
+   yash@yash:~$ sudo mount -t nfs 127.0.01:/home/yash/demo_dir /home/yash_directory
 
 h. Lastly, then the user can check for the mounted file in the directory that user has made:
  
