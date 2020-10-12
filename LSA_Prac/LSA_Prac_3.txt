@@ -1,0 +1,80 @@
+Practical No: 3
+
+• Aim: Configure NFS server to share directories or files on your network.
+
+
+• Description:
+
+1. The Network File System (NFS) is a client/server application that lets a computer user view and optionally store and 
+   update files on a remote computer as though they were on the user's own computer. 
+
+2. The NFS protocol is one of several distributed file system standards for network-attached storage(NAS).
+
+3. NFS is kind of Google Drive.
+
+
+• There are 3 types of NFS:
+
+1. NFSv2 :- 
+   > In this requests are based on per host basis and not on a per user.
+   > Convenient for whole system.
+   > TCP or UDP support.
+   > File size limitation is less than 2GB.
+
+2. NFSv3 :-
+   > Bugs fixes of NFSv2, more features and more performance gain.
+   > TCP or UDP support.
+   > Support 2GB on server and more than 2GB on client.
+   > Support is based on server file limit.
+
+3. NFSv4 :-
+   > Uses stateful protocol TCP or SCTP (Stream Control Transmission Protocol).
+   > More security features and Kerberos.
+   > Here, client authentication is per user basis and not per host basis.
+   > RPC (Remote Procedure Calls).
+   > It listens on port 2049.
+
+ 
+• Steps and Commands:
+
+1. Install NFS server:
+
+   yash@yash:~$ sudo apt-get -y install kernel-server
+
+   yash@yash:~$ sudo apt-get -y install nfs-kernel-server
+
+2. Command to enable a service:  
+   yash@yash:~$ sudo systemctl enable nfs-kernel-server
+
+3. Now user needs to create a directory to show the function of NFS that is the mounting process
+   yash@yash:~$ mkdir demo_dir
+   yash@yash:~$ vi a.txt
+   yash@yash:~$ ls a.txt
+   yash@yash:~$ mv a.txt demo_dir
+   yash@yash:~$ ls /home/yash/demo_dir
+
+4. Now we have to mention our /directory_path ip_address (permissions), we need to give rw (read,write) permission,
+   the commands for this is as follows:
+
+   yash@yash:~$ sudo vi /etc/exports
+   yash@yash:~$cat /etc/exports
+
+  > After mentioning the /directory_path ip_address (permissions), it should look like this.
+    /home/yash/demo_dir 127.0.0.1(rw)
+
+
+5. Now to check the exports:
+   yash@yash:~$ sudo exportfs -ra
+
+6. To allow file sharing between systems on your network, the command is:
+   yash@yash:~$ sudo apt-get -y install nfs-common
+
+Note: Before mounting make sure that the user have made a directory to mount the file, if not the write the command to do so:
+      yash@yash:~$ sudo mkdir /home/yash_directory
+
+7. Now to mount the file:
+   yash@yash:~$ sudo mount -t nfs 127.0.01:/home/yash/demo_dir /home/yash_directory
+
+8. Lastly, then the user can check for the mounted file in the directory that user has made:-
+   yash@yash:~$ cd /home/yash_directory
+   ls
