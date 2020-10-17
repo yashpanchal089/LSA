@@ -50,4 +50,4 @@ Practical No: 7
    yash@yash:~$ sudo mysql -u root -p
 
 10. Then start the mysqld service:
-    yash@yas:~$ sudo service mysqld start
+    yash@yash:~$ sudo service mysqld start
