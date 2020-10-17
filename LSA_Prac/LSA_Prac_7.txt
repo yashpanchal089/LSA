@@ -1,0 +1,53 @@
+Practical No: 7
+
+
+• Aim: Install MySQL to configure database server.
+
+
+• Description: 
+
+1. MySQL 8.0 is the latest stable release of MySQL relational database management system. 
+
+2. MySQL is a free to use Database Management System (RDBMS) that uses Structured Query Language (SQL). 
+
+3. MySQL is designed to be stable, reliable, and flexible to use.
+
+4. Oracle provides Debian packages for installing MySQL on Debian or Debian-like Linux systems. 
+   The packages are available through two different channels:
+
+   a. The MySQL APT Repository, supporting Debian and Ubuntu platforms. “Installing MySQL on Linux Using the MySQL APT Repository”.
+
+   b. The MySQL Developer Zone's Download Area.
+
+
+• Steps and Commands:
+
+1. We need update:
+   yash@yash:~$ sudo apt update -y
+
+2. Then install wget:
+   yash@yash:~$ sudo apt install -y wget
+
+3. Then we need to wget the mysql deb files:
+   yash@yash:~$ sudo apt install -y wget https://dev.mysql.com/get/mysql-apt-config_0.8.15-1_all.deb
+
+4. Install the deb files:
+   yash@yash:~$ sudo dpkg -i mysql-apt-config_0.8.15-1_all.deb
+
+5. We need update:
+   yash@yash:~$ sudo apt update
+
+6. Then install community server:
+   yash@yash:~$ sudo apt install mysql-community-server
+
+7. To enable mysql:
+   yash@yash:~$ sudo systemctl enable --now mysql
+
+8. To check the status:
+   yash@yash:~$ sudo systemctl status mysql
+
+9. To test if the database server is working fine by creating a test database:
+   yash@yash:~$ sudo mysql -u root -p
+
+10. Then start the mysqld service:
+    yash@yas:~$ sudo service mysqld start
