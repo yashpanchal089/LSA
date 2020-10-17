@@ -1,0 +1,120 @@
+Practical No: 8
+
+
+• Aim: Configure NIS in order to share user accounts in your local network.
+
+
+• Description:
+
+1. NIS stands for Network Information Systems.
+2. NIS, or Network Information Systems, is a network service that allows authentication and login information to be stored on a centrally located server. 
+3. This includes the username and password database for login authentication, database of user groups, and the locations of home directories.
+4. NIS-sharing flat files (sharing resources).
+5. Files stored on certain machines, kind of database, can be queried, in tabular form, at least one column should be there.
+6. It is kind of kind of database in which each table has unique key, one or more column.
+7. And with query we need to identify it.
+
+   There are 2 types:
+   a. Master – Main Server
+   b. Slave – Secondary server, load balancing
+If master server goes down then the Slave can take over Master server.
+
+8. Client can join without server acceptance
+
+
+• Steps and Commands:
+
+1. First update kali:
+   yash@yash:~$ sudo apt-get update
+   yash@yash:~$ sudo apt update
+
+2. Now install NIS:
+   yash@yash:~$ sudo apt-get install -y nis
+
+3. Now user must configure NIS:
+   yash@yash:~$ sudo nano /etc/default/nis
+
+- After opening /etc/default/nis file scroll down and see-
+# Are we a NIS server and if so what kind (values: false, slave, master)?
+
+- And write:
+NISSERVER=master
+
+- And then scroll below 
+# Are we a NIS client?
+
+- And write:
+NISCLIENT=false
+
+4. Take copy of NIS:
+   yash@yash:~$ sudo cp /etc/default/nis /etc/default/nis_client
+
+5. In /etc/ypserv.securenets, we need to write our IP address and subnet mask:
+   yash@yash:~$ sudo nano /etc/ypserv.securenets
+
+6. Now for gmake (GNU make - called simply make on Linux systems) is a tool to help you build a program from its source.
+   yash@yash:~$ which gmake
+   yash@yash:~$ sudo dpkg -S `which gmake`
+
+7. Now start & check the status of ypserv:
+
+- ypserv: yellow pages (directory), it's a server where a client can query to see what service is there. 
+- ypbind: Client binds tools 
+- ypxfrd: nis database is with master, this command sends the database to the slave (secondary server) - load balancing
+
+   yash@yash:~$ sudo systemctl start ypserv
+   yash@yash:~$ sudo systemctl status ypserv
+
+8. Now run the yp:
+   yash@yash:~$ sudo /usr/lib/yp/ypinit -m
+
+9. Now start & check status of NIS:
+   yash@yash:~$ sudo systemctl start nis
+   yash@yash:~$ sudo systemctl status nis
+
+10. Restart and check status of rpcbind NIS:
+    yash@yash:~$ sudo systemctl restart rpcbind nis
+    yash@yash:~$ sudo systemctl status rpcbind nis
+
+11. Now we need to Add a user:
+    yash@yash:~$ sudo adduser yash7
+
+12. Now to make your user:
+    yash@yash:~$ cd /var/yp
+    yash@yash:~$ sudo make
+
+13. Now add a hostname in /etc/host: (I’ve added kali.yash )
+    yash@yash:~$ sudo nano /etc/hosts
+
+14. In /etc/yp.conf/ write the domain and server
+    In my case I’ve written domain as Yash and server as kali.yash
+
+    shibu@kali:~$ sudo nano /etc/yp.conf
+
+15. Now, do $ ls -lrth
+    yash@yash:~$ cat ypservers
+
+16. Now do hosts.byname name to see all your host name & domain name
+    yash@yash:~$ sudo cat hosts.byname
+    yash@yash:~$ sudo domainname
+ 
+17. Now ping, just to check everything’s working:
+    yash@yash:~$ ping yash
+    yash@yash:~$ ping yash.com
+    yash@yash:~$ ping kali.yash
+
+18. Now again run the yp:
+    yash@yash:~$ sudo /usr/lib/yp/ypinit -m
+
+19. Now configure nsswitch.conf for NIS:
+- The Name Service Switch (NSS) configuration file, /etc/nsswitch.conf, is used by the GNU C Library and certain other applications 
+  to determine the sources from which to obtain name-service information in a range of categories, and in what order.  
+  
+- Each category of information is identified by a database name.
+
+    yash@yash:~$ sudo nano /etc/nsswitch
+
+20. Now reboot Kali and Login with the user that we have added above:
+    yash@yash:~$ sudo reboot
+
+21. If Login is successful then NIS server is working.
