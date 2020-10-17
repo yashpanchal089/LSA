@@ -19,7 +19,6 @@ Practical No: 7
 
    b. The MySQL Developer Zone's Download Area.
 
-
 • Steps and Commands:
 
 1. We need update:
