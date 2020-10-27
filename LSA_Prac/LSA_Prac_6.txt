@@ -1,67 +1,91 @@
 Practical No: 6
 
-• Aim: Configure NFS server to share directories or files on your network.
 
-★ NFS stand for Network File System
+• Aim: Configure NTP, Install and Configure NTP Server, Configure NTP Client.
 
-★ It allows remote hosts to mount file systems over a network and interact
-   with those file systems as though they are mounted locally.\
+• Description:
 
-★ There are 3 types of NFS:
+> NTP- (Port number - 123)
+  NTP stands for Network Time Protocol, and it is an Internet protocol used to synchronize the clocks of computers to some time reference. 
+  NTP is an Internet standard protocol.
+  NTP time servers work within the TCP/IP suite and rely on User Datagram Protocol (UDP) port 123. 
 
-1) NFSv2 :- 
-   • In this requests are based on per host basis and not on a per user.
-   • Convenient for whole system.
-   • TCP or UDP support.
-   • File size limitation is less than 2GB.
+> SNTP-
+  SNTP (Simple Network Time Protocol) is basically also NTP,
+  As a full implementation of the NTP protocol seemed too complicated for many systems, a simplified version of the protocol, namely SNTP had been defined.
 
 
-•  Steps and Commands:
+> Should Time be synchronized?
 
-a. Install NFS server:
+  Time usually just advances. If you have communicating programs running on different computers, time still should even advance if you switch from one computer to another. 
+  Obviously if one system is ahead of the others, the others are behind that particular one. From the perspective of an external observer, 
+  switching between these systems would cause time to jump forward and back, a non-desirable effect.
 
-   yash@yash:~$ sudo apt-get -y install kernel-server
+  As a consequence, isolated networks may run their own wrong time, but as soon as you connect to the Internet, effects will be visible. 
+  Just imagine some EMail message arrived five minutes before it was sent, and there even was a reply two minutes before the message was sent.
 
-   yash@yash:~$ sudo apt-get -y install nfs-kernel-server
 
-b. Command to enable a service:  
-   
-   yash@yash:~$ sudo systemctl enable nfs-kernel-server
+> FEATURES:
 
-c. Now user needs to create a directory to show the function of NFS that is the mounting process
+a. NTP needs some reference clock that defines the true time to operate. All clocks are set towards that true time.
 
-   yash@yash:~$ mkdir demo_dir
-   yash@yash:~$ vi a.txt
-   yash@yash:~$ ls a.txt
-   yash@yash:~$ mv a.txt demo_dir
-   yash@yash:~$ ls /home/yash/demo_dirr
+b. NTP uses UTC as reference time.
 
-d. Now we have to mention our /directory_path ip_address (permissions), we need to give rw (read,write) permission,
-   the commands for this is as follows:
+c. NTP is a fault-tolerant protocol that will automatically select the best of several available time sources to synchronize to. 
 
-   yash@yash:~$ sudo vi /etc/exports
-   yash@yash:~$cat /etc/exports
-  
-   >After mentioning the /directory_path ip_address (permissions), it should look like this.
-    /home/yash/demo_dirr 127.0.0.1(rw)
+d. NTP is highly scalable:- A synchronization network may consist of several reference clocks. 
+   Each node of such a network can exchange time information either bidirectional or unidirectional. 
 
-e. Now to check the exports:
-   
-   yash@yash:~$ sudo exportfs -ra
+e. Having available several time sources, NTP can select the best candidates to build its estimate of the current time. 
+   The protocol is highly accurate, using a resolution of less than a nanosecond (about 2^-32 seconds). 
 
-f. To allow file sharing between systems on your network, the command is:
-  
-   yash@yash:~$ sudo apt-get -y install nfs-common
 
-g. Now to mount the file:
+• Steps and Commands:
 
-   yash@yash:~$ sudo mount -t nfs 127.0.01:/home/yash/demo_dirr /home/yash_directory
+1. We need update:
+   yash@yash:~$ sudo apt update -y
 
-h. Lastly, then the user can check for the mounted file in the directory that user has made:
- 
-   yash@yash:~$ cd /home/yash_directory
-   ls
+2. To check kali version:
+   yash@yash:~$ uname -a
 
+3. Command to install NTP:
+   yash@yash:~$ sudo apt install ntp
+
+4. Command to install SNTP:
+   yash@yash:~$ sudo apt install sntp
+
+5. To check the version:
+   yash@yash:~$ sudo sntp --version
+   yash@yash:~$ cd /etc
+   yash@yash:~$ ls -lrth *ntp.conf*
+
+6. Then start the service: 
+   yash@yash:~$ sudo systemctl start ntp
+
+7. To check the status:
+   yash@yash:~$ sudo systemctl status ntp
+
+8. Now we need to configure NTP:
+   yash@yash:~$ sudo vim /etc/ntp.conf
+
+- [Refer Practical_Output Folder]
+- After opening ntp.conf file scroll down and see-
+  # You need to talk to an NTP server or two (or three)
+
+- Below this line write:
+  server localhost
+
+9. To check the conf file:
+   yash@yash:~$ cat ntp.conf
+
+10. Then restart the service: 
+    yash@yash:~$ sudo systemctl restart ntp
+
+11. To check the status:
+    yash@yash:~$ sudo systemctl status ntp
+
+12. Now to query NTP and check it's connection:
+    yash@yash:~$ sudo ntpq -p
 
 
    
