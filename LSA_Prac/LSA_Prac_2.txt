@@ -14,7 +14,7 @@ Practical No: 2
     The ip address and the ethernet connections and other network connections can be viewed using the :
                       
     command: 
-    $sudo ip a   (or)  $sudo ip addr
+    $sudo ip addr
     
 3.) Configuring services: 
     services are also known as daemons which efficiently run in the background, services usually have a 'd' in last 
