@@ -18,7 +18,7 @@ Explaination:-
 
 ★ DHCP-enabled clients send a request to the DHCP server whenever they connect to a network.
 
-Advantages of using DHCP:-
+Advantages of using DHCP :-
 ★ Centralized management of IP addresses
 ★ Ease of adding new clients to a network
 ★ Reuse of IP addresses reducing the total number of IP addresses that are required
