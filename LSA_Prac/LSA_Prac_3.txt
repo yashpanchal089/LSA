@@ -2,7 +2,6 @@ Practical No: 3
 
 • Aim: Configure NFS server to share directories or files on your network.
 
-
 • Description:
 
 1. The Network File System (NFS) is a client/server application that lets a computer user view and optionally store and 
